@@ -1,7 +1,6 @@
 <script>
 	import Auth from '$lib/Auth.svelte';
+	import { fade } from 'svelte/transition';
 </script>
 
-<main>
-	<Auth />
-</main>
+<main transition:fade={{ duration: 100 }} />

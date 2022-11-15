@@ -1,7 +1,10 @@
 <script>
 	import '../app.css';
 	import { onMount } from 'svelte';
-	import { fly } from 'svelte/transition';
+	import { fade } from 'svelte/transition';
+	import { goto } from '$app/navigation';
+	import { getAuth, signOut } from 'firebase/auth';
+	import { clickOutside } from '$lib/clickOutside';
 
 	let darkTheme = false;
 	onMount(() => {
@@ -16,9 +19,15 @@
 	}
 
 	let search = '';
-	let showSearchOptions = true;
+
+	let showSearchOptions = false;
 	let toggleShowSearchOptions = () => {
 		showSearchOptions = !showSearchOptions;
+	};
+
+	let showUserProfile = false;
+	let toggleShowUserProfile = () => {
+		showUserProfile = !showUserProfile;
 	};
 
 	function executeSearch() {
@@ -30,8 +39,8 @@
 	// let priceMax = 100;
 </script>
 
-<nav class="w-full p-3 bg-zinc-100 dark:bg-zinc-900 transition ease-in-out duration-500">
-	<div class="container mx-auto text-black dark:text-gray-300 transition">
+<nav class="w-full p-3 bg-zinc-100 dark:bg-zinc-900 transition ease-in-out duration-500 ">
+	<div class="container mx-auto">
 		<div class="flex justify-between">
 			<!-- Home -->
 			<div class="self-center cursor-pointer">
@@ -58,7 +67,7 @@
 				<!-- Settings -->
 				<button
 					on:click={toggleShowSearchOptions}
-					class="inline-block h-5/6 pl-3 pr-2 bg-white dark:bg-zinc-800 dark:hover:bg-zinc-700 rounded-3xl rounded-tr-none rounded-br-none"
+					class="inline-block h-full p-2 pl-3 bg-white dark:bg-zinc-800 dark:hover:bg-zinc-700 rounded-3xl rounded-tr-none rounded-br-none"
 				>
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
@@ -80,12 +89,12 @@
 				<input
 					type="text"
 					bind:value={search}
-					class="inline-block w-full h-5/6 pl-2 pr-2 outline-none outline-offset-0 dark:bg-zinc-800 focus:outline-blue-500 dark:focus:outline-1"
+					class="inline-block z-10 h-full w-full p-2 outline-none outline-offset-0 dark:bg-zinc-800 focus:outline-blue-500 dark:focus:outline-1"
 				/>
 
 				<!-- Execute -->
 				<button
-					class="inline-block h-5/6 pr-4 pl-3 bg-zinc-300 dark:bg-zinc-700 dark:hover:bg-zinc-600 rounded-3xl rounded-tl-none rounded-bl-none"
+					class="inline-block h-full p-2 pr-3 bg-zinc-300 dark:bg-zinc-700 dark:hover:bg-zinc-600 rounded-3xl rounded-tl-none rounded-bl-none"
 					on:click={executeSearch}
 				>
 					<svg
@@ -107,43 +116,46 @@
 
 			<!-- Right side -->
 			<div class="flex">
-				<!-- Switch theme -->
-				<button on:click={switchTheme} class="inline-block">
-					{#if darkTheme}
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							fill="none"
-							viewBox="0 0 24 24"
-							stroke-width="1.5"
-							stroke="currentColor"
-							class="w-6 h-6"
-						>
-							<path
-								stroke-linecap="round"
-								stroke-linejoin="round"
-								d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z"
-							/>
-						</svg>
-					{:else}
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							fill="none"
-							viewBox="0 0 24 24"
-							stroke-width="1.5"
-							stroke="currentColor"
-							class="w-6 h-6"
-						>
-							<path
-								stroke-linecap="round"
-								stroke-linejoin="round"
-								d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z"
-							/>
-						</svg>
-					{/if}
-				</button>
+				<div id="theme" class="flex">
+					<!-- Switch theme -->
+					<button on:click={switchTheme}>
+						{#if darkTheme}
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								fill="none"
+								viewBox="0 0 24 24"
+								stroke-width="1.5"
+								stroke="currentColor"
+								class="w-6 h-6"
+							>
+								<path
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z"
+								/>
+							</svg>
+						{:else}
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								fill="none"
+								viewBox="0 0 24 24"
+								stroke-width="1.5"
+								stroke="currentColor"
+								class="w-6 h-6"
+							>
+								<path
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z"
+								/>
+							</svg>
+						{/if}
+					</button>
+				</div>
+
 				<!-- Profile -->
-				<div class="inline-block p-3 cursor-pointer">
-					<a href="/u/default">
+				<div id="profile" class="ml-2 flex dropdown cursor-pointer">
+					<button on:click={toggleShowUserProfile} class="">
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
 							fill="none"
@@ -158,7 +170,34 @@
 								d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"
 							/>
 						</svg>
-					</a>
+					</button>
+
+					{#if showUserProfile}
+						<div
+							use:clickOutside
+							on:clickoutside={() => (showUserProfile = false)}
+							transition:fade={{ duration: 100 }}
+							id="profile-menu"
+							class="dropdown-menu absolute min-w-max mt-16 bg-zinc-100 dark:bg-zinc-900 rounded-xl"
+						>
+							<!-- TODO: Replace by if user -->
+							{#if false}
+								<p class="w-full px-3 py-2 text-center">Default</p>
+								<div class="w-full border-b-2 border-b-zinc-300 dark:border-b-zinc-700" />
+								<button
+									class="w-full px-3 py-2 text-center hover:bg-red-100 dark:hover:bg-red-900 rounded-xl rounded-tl-none rounded-tr-none"
+									on:click={() => signOut(getAuth())}>Sign Out</button
+								>
+							{:else}
+								<p class="w-full px-3 py-2 text-center">Not signed in</p>
+								<div class="w-full border-b-2 dark:border-b-zinc-700" />
+								<button
+									class="w-full px-3 py-2 text-center hover:bg-green-100 dark:hover:bg-green-900 rounded-xl rounded-tl-none rounded-tr-none"
+									on:click={() => goto('/auth')}>Sign In</button
+								>
+							{/if}
+						</div>
+					{/if}
 				</div>
 			</div>
 		</div>

@@ -14,5 +14,9 @@
 	});
 </script>
 
-<Nav />
-<slot />
+<div
+	class="w-full h-full text-black dark:bg-zinc-800 dark:text-gray-300 transition ease-in-out duration-500"
+>
+	<Nav />
+	<slot />
+</div>
