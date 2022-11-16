@@ -1,8 +1,6 @@
 <script>
 	import Nav from '$lib/Nav.svelte';
-	import App from '$lib/firebase';
 	import { getAuth, onAuthStateChanged } from 'firebase/auth';
-
 	import { onMount } from 'svelte';
 
 	onMount(() => {
