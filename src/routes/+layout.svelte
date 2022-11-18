@@ -13,8 +13,9 @@
 </script>
 
 <div
-	class="w-full h-full text-black dark:bg-zinc-800 dark:text-gray-300 transition ease-in-out duration-500"
->
+	class="w-screen h-screen text-black dark:bg-neutral-800 dark:text-gray-300 transition ease-in-out duration-500"
+	>
 	<Nav />
 	<slot />
 </div>
+

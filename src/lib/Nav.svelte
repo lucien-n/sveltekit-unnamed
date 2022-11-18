@@ -44,9 +44,9 @@
 	// let priceMax = 100;
 </script>
 
-<nav class="w-full transition ease-in-out duration-500 ">
+<nav class="z-50 w-full p-1 sm:p-3 transition ease-in-out duration-500 fixed">
 	<div
-		class="w-full lg:w-3/5 mx-auto mt-3 py-2 sm:p-2 bg-zinc-100 border border-zinc-700 dark:bg-zinc-900 rounded shadow-lg"
+		class="w-full lg:w-3/5 mx-auto py-2 sm:p-2 bg-zinc-100 border border-zinc-700 dark:bg-zinc-900 rounded shadow-lg"
 	>
 		<div class="flex justify-between">
 			<!-- Home -->
@@ -76,7 +76,7 @@
 				<!-- Settings -->
 				<button
 					on:click={toggleShowSearchOptions}
-					class="inline-block h-5/6 sm:h-full p-1 sm:p-2 pl-2 sm:pl-3 bg-white hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 rounded-2xl rounded-tr-none rounded-br-none"
+					class="inline-block h-5/6 sm:h-full p-1 sm:p-2 pl-2 sm:pl-3 bg-white hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 rounded-l-md border border-zinc-700 border-r-0"
 				>
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
@@ -98,12 +98,12 @@
 				<input
 					type="text"
 					bind:value={search}
-					class="inline-block z-10 h-5/6 sm:h-full w-full p-1 sm:p-2 outline-none outline-offset-0 dark:bg-zinc-800 focus:outline-blue-500 dark:focus:outline-1"
+					class="inline-block z-10 h-5/6 sm:h-full w-full p-1 sm:p-2 outline-none outline-offset-0 dark:bg-zinc-800 focus:outline-blue-500 dark:focus:outline-1 border border-zinc-700 border-l-0 border-r-0"
 				/>
 
 				<!-- Execute -->
 				<button
-					class="inline-block h-5/6 sm:h-full p-1 sm:p-2 pr-2 sm:pr-3 bg-zinc-300 hover:bg-zinc-400 dark:bg-zinc-700 dark:hover:bg-zinc-600 rounded-2xl rounded-tl-none rounded-bl-none"
+					class="inline-block h-5/6 sm:h-full p-1 sm:p-2 pr-2 sm:pr-3 bg-white dark:bg-zinc-800 rounded-r-md border border-zinc-700 border-l-0"
 					on:click={executeSearch}
 				>
 					<svg
@@ -152,13 +152,13 @@
 						on:clickoutside={() => (showUserProfile = false)}
 						transition:fade={{ duration: 100 }}
 						id="profile-menu"
-						class="z-50 dropdown-menu min-w-max absolute right-0 dropdown-menu mt-12 sm:mt-16 bg-zinc-100 dark:bg-zinc-900 rounded-xl"
+						class="z-50 dropdown-menu min-w-max absolute right-0 dropdown-menu mt-12 sm:mt-16 bg-zinc-100 dark:bg-zinc-900 rounded-lg border border-zinc-700"
 					>
 						<!-- Switch theme -->
 						<div
-							class="w-full flex px-3 py-2 hover:bg-zinc-200 dark:hover:bg-zinc-700 rounded-xl rounded-b-none"
+							class="w-full flex px-3 py-2 hover:bg-zinc-200 dark:hover:bg-zinc-700 rounded-lg rounded-b-none"
 						>
-							<button on:click={switchTheme} class="dropdown-item mx-auto inline-block1">
+							<button on:click={switchTheme} class="dropdown-item mx-auto inline-block">
 								{#if darkTheme}
 									<svg
 										xmlns="http://www.w3.org/2000/svg"
@@ -199,13 +199,13 @@
 							<p class="w-full px-3 py-2 text-center dropdown-item">Default</p>
 							<div class="w-full border-b-2 border-b-zinc-300 dark:border-b-zinc-700" />
 							<button
-								class="w-full px-3 py-2 text-center dropdown-item hover:bg-zinc-200 dark:hover:bg-zinc-600 rounded-xl rounded-tl-none rounded-tr-none"
+								class="w-full px-3 py-2 text-center dropdown-item hover:bg-zinc-200 dark:hover:bg-zinc-600 rounded-lg rounded-tl-none rounded-tr-none"
 								on:click={() => signOut(getAuth())}>Sign Out</button
 							>
 						{:else}
 							<div class="w-full border-b-2 dark:border-b-zinc-700" />
 							<button
-								class="w-full px-3 py-2 text-center dropdown-item hover:bg-zinc-200 dark:hover:bg-zinc-600 rounded-xl rounded-tl-none rounded-tr-none"
+								class="w-full px-3 py-2 text-center dropdown-item hover:bg-zinc-200 dark:hover:bg-zinc-600 rounded-lg rounded-tl-none rounded-tr-none"
 								on:click={() => goto('/auth')}>Sign In</button
 							>
 						{/if}
