@@ -44,15 +44,15 @@
 	// let priceMax = 100;
 </script>
 
-<nav class="z-50 w-full p-1 sm:p-3 transition ease-in-out duration-500 fixed">
+<nav class="fixed z-50 w-full p-1 transition duration-500 ease-in-out sm:p-3">
 	<div
-		class="w-full lg:w-3/5 mx-auto py-2 sm:p-2 bg-zinc-100 border border-zinc-700 dark:bg-zinc-900 rounded shadow-lg"
+		class="mx-auto w-full rounded border border-zinc-700 bg-zinc-100 py-2 shadow-lg dark:bg-zinc-900 sm:p-2 lg:w-3/5"
 	>
 		<div class="flex justify-between">
 			<!-- Home -->
 
 			<!-- * Desktop -->
-			<div class="flex self-center cursor-pointer">
+			<div class="flex cursor-pointer self-center">
 				<a href="/" class="px-2 py-3">
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
@@ -60,7 +60,7 @@
 						viewBox="0 0 24 24"
 						stroke-width="1.5"
 						stroke="currentColor"
-						class="w-6 h-6"
+						class="h-6 w-6"
 					>
 						<path
 							stroke-linecap="round"
@@ -72,11 +72,11 @@
 			</div>
 
 			<!-- * Search -->
-			<div class="items-center cursor-text flex w-full md:w-3/4">
+			<div class="flex w-full cursor-text items-center md:w-3/4">
 				<!-- Settings -->
 				<button
 					on:click={toggleShowSearchOptions}
-					class="inline-block h-5/6 sm:h-full p-1 sm:p-2 pl-2 sm:pl-3 bg-white hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 rounded-l-md border border-zinc-700 border-r-0"
+					class="inline-block h-5/6 rounded-l-md border border-r-0 border-zinc-700 bg-white p-1 pl-2 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 sm:h-full sm:p-2 sm:pl-3"
 				>
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
@@ -84,7 +84,7 @@
 						viewBox="0 0 24 24"
 						stroke-width="1.5"
 						stroke="currentColor"
-						class="w-6 h-6 inline-block"
+						class="inline-block h-6 w-6"
 					>
 						<path
 							stroke-linecap="round"
@@ -98,12 +98,12 @@
 				<input
 					type="text"
 					bind:value={search}
-					class="inline-block z-10 h-5/6 sm:h-full w-full p-1 sm:p-2 outline-none outline-offset-0 dark:bg-zinc-800 focus:outline-blue-500 dark:focus:outline-1 border border-zinc-700 border-l-0 border-r-0"
+					class="z-10 inline-block h-5/6 w-full border border-l-0 border-r-0 border-zinc-700 p-1 outline-none outline-offset-0 focus:outline-blue-500 dark:bg-zinc-800 dark:focus:outline-1 sm:h-full sm:p-2"
 				/>
 
 				<!-- Execute -->
 				<button
-					class="inline-block h-5/6 sm:h-full p-1 sm:p-2 pr-2 sm:pr-3 bg-white dark:bg-zinc-800 rounded-r-md border border-zinc-700 border-l-0"
+					class="inline-block h-5/6 rounded-r-md border border-l-0 border-zinc-700 bg-white p-1 pr-2 dark:bg-zinc-800 sm:h-full sm:p-2 sm:pr-3"
 					on:click={executeSearch}
 				>
 					<svg
@@ -112,7 +112,7 @@
 						viewBox="0 0 24 24"
 						stroke-width="1.5"
 						stroke="currentColor"
-						class="w-6 h-6"
+						class="h-6 w-6"
 					>
 						<path
 							stroke-linecap="round"
@@ -123,8 +123,24 @@
 				</button>
 			</div>
 
+			<!-- * Add Listing -->
+			<div id="listing" class="flex cursor-pointer">
+				<a href="/new" class="px-2 py-3">
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						fill="none"
+						viewBox="0 0 24 24"
+						stroke-width="1.5"
+						stroke="currentColor"
+						class="h-6 w-6"
+					>
+						<path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+					</svg>
+				</a>
+			</div>
+
 			<!-- * Profile -->
-			<div id="profile" class="flex dropdown relative cursor-pointer">
+			<div id="profile" class="dropdown relative flex cursor-pointer">
 				<button
 					on:click={toggleShowUserProfile}
 					class:pointer-events-none={showUserProfile}
@@ -136,7 +152,7 @@
 						viewBox="0 0 24 24"
 						stroke-width="1.5"
 						stroke="currentColor"
-						class="w-6 h-6"
+						class="h-6 w-6"
 					>
 						<path
 							stroke-linecap="round"
@@ -152,11 +168,11 @@
 						on:clickoutside={() => (showUserProfile = false)}
 						transition:fade={{ duration: 100 }}
 						id="profile-menu"
-						class="z-50 dropdown-menu min-w-max absolute right-0 dropdown-menu mt-12 sm:mt-16 bg-zinc-100 dark:bg-zinc-900 rounded-lg border border-zinc-700"
+						class="dropdown-menu dropdown-menu absolute right-0 z-50 mt-12 min-w-max rounded-lg border border-zinc-700 bg-zinc-100 dark:bg-zinc-900 sm:mt-16"
 					>
 						<!-- Switch theme -->
 						<div
-							class="w-full flex px-3 py-2 hover:bg-zinc-200 dark:hover:bg-zinc-700 rounded-lg rounded-b-none"
+							class="flex w-full rounded-lg rounded-b-none px-3 py-2 hover:bg-zinc-200 dark:hover:bg-zinc-700"
 						>
 							<button on:click={switchTheme} class="dropdown-item mx-auto inline-block">
 								{#if darkTheme}
@@ -166,7 +182,7 @@
 										viewBox="0 0 24 24"
 										stroke-width="1.5"
 										stroke="currentColor"
-										class="w-6 h-6 float-left"
+										class="float-left h-6 w-6"
 									>
 										<path
 											stroke-linecap="round"
@@ -181,7 +197,7 @@
 										viewBox="0 0 24 24"
 										stroke-width="1.5"
 										stroke="currentColor"
-										class="w-6 h-6 float-left"
+										class="float-left h-6 w-6"
 									>
 										<path
 											stroke-linecap="round"
@@ -196,16 +212,16 @@
 
 						<!-- TODO: Replace by if user -->
 						{#if false}
-							<p class="w-full px-3 py-2 text-center dropdown-item">Default</p>
+							<p class="dropdown-item w-full px-3 py-2 text-center">Default</p>
 							<div class="w-full border-b-2 border-b-zinc-300 dark:border-b-zinc-700" />
 							<button
-								class="w-full px-3 py-2 text-center dropdown-item hover:bg-zinc-200 dark:hover:bg-zinc-600 rounded-lg rounded-tl-none rounded-tr-none"
+								class="dropdown-item w-full rounded-lg rounded-tl-none rounded-tr-none px-3 py-2 text-center hover:bg-zinc-200 dark:hover:bg-zinc-600"
 								on:click={() => signOut(getAuth())}>Sign Out</button
 							>
 						{:else}
 							<div class="w-full border-b-2 dark:border-b-zinc-700" />
 							<button
-								class="w-full px-3 py-2 text-center dropdown-item hover:bg-zinc-200 dark:hover:bg-zinc-600 rounded-lg rounded-tl-none rounded-tr-none"
+								class="dropdown-item w-full rounded-lg rounded-tl-none rounded-tr-none px-3 py-2 text-center hover:bg-zinc-200 dark:hover:bg-zinc-600"
 								on:click={() => goto('/auth')}>Sign In</button
 							>
 						{/if}
@@ -216,12 +232,12 @@
 
 		<!-- Search options -->
 		<div class="flex justify-between">
-			<div class:hidden={!showSearchOptions} class="items-centers flex w-1/2 mt-3">
+			<div class:hidden={!showSearchOptions} class="items-centers mt-3 flex w-1/2">
 				<!-- Category -->
 				<div id="category" class="inline-block">
 					<!-- Select -->
 					<button
-						class="inline-block p-3 bg-zinc-300 hover:bg-zinc-200 dark:bg-zinc-700 dark:hover:bg-zinc-600 rounded-xl"
+						class="inline-block rounded-xl bg-zinc-300 p-3 hover:bg-zinc-200 dark:bg-zinc-700 dark:hover:bg-zinc-600"
 					>
 						Category
 						<svg
@@ -230,7 +246,7 @@
 							viewBox="0 0 24 24"
 							stroke-width="1.5"
 							stroke="currentColor"
-							class="inline-block w-6 h-6"
+							class="inline-block h-6 w-6"
 						>
 							<path
 								stroke-linecap="round"
@@ -271,7 +287,7 @@
 				<div id="region" class="inline-block ">
 					<!-- Select -->
 					<button
-						class="inline-block p-3 bg-zinc-300 hover:bg-zinc-200 dark:bg-zinc-700 dark:hover:bg-zinc-600 rounded-xl"
+						class="inline-block rounded-xl bg-zinc-300 p-3 hover:bg-zinc-200 dark:bg-zinc-700 dark:hover:bg-zinc-600"
 					>
 						Région
 						<svg
@@ -280,7 +296,7 @@
 							viewBox="0 0 24 24"
 							stroke-width="1.5"
 							stroke="currentColor"
-							class="inline-block w-6 h-6"
+							class="inline-block h-6 w-6"
 						>
 							<path
 								stroke-linecap="round"
