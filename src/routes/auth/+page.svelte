@@ -8,6 +8,7 @@
 	import fb from '$lib/firebase';
 	import { goto } from '$app/navigation';
 	import { fade } from 'svelte/transition';
+	import Separator from '$lib/Separator.svelte';
 
 	// 0 => Sign In
 	// 1 => Sign Up
@@ -188,7 +189,7 @@
 		>
 			Sign {currentForm == 0 ? 'In' : 'Up'}
 		</button>
-		<hr class="mx-auto h-px w-4/5 border-none bg-zinc-600" />
+		<Separator />
 		<button
 			class="mx-auto mt-3 block rounded-md border border-zinc-700 px-3 py-2 hover:bg-zinc-200 dark:hover:bg-zinc-800 sm:rounded-lg"
 			on:click={signInWithGoogle}
