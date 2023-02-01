@@ -1,5 +1,4 @@
 <script lang="ts">
-	import fb from '$lib/firebase';
 	import Separator from '$lib/Separator.svelte';
 
 	let title: string;
@@ -18,8 +17,6 @@
 			picture = e.target?.result;
 		};
 	};
-
-	const user = fb.auth();
 </script>
 
 <div id="new" class="pointer-events-none flex h-full w-full">
@@ -74,6 +71,7 @@
 		<div class="flex h-full w-full flex-col justify-center">
 			{#if picture}
 				<div id="preview-picture" class="m-0 w-full px-0 py-3">
+					<!-- svelte-ignore a11y-img-redundant-alt -->
 					<img
 						src={picture}
 						alt="Uploaded picture"

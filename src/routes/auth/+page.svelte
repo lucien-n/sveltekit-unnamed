@@ -1,14 +1,7 @@
 <script lang="ts">
-	import {
-		getAuth,
-		createUserWithEmailAndPassword,
-		signInWithEmailAndPassword,
-		signInWithPopup
-	} from 'firebase/auth';
-	import fb from '$lib/firebase';
-	import { goto } from '$app/navigation';
 	import { fade } from 'svelte/transition';
-	import Separator from '$lib/Separator.svelte';
+	import { signInWithEmailAndPassword, signUpWithEmailAndPassword } from '$lib/pocketbase';
+	import { user } from '$lib/store';
 
 	// 0 => Sign In
 	// 1 => Sign Up
@@ -29,52 +22,12 @@
 		else passwordInput.type = 'password';
 	};
 
-	function signInWithGoogle() {
-		const auth = getAuth();
-		signInWithPopup(auth, fb.googleAuthProvider)
-			.then((result) => {
-				const user = result.user;
-				if (user) console.info('Logged in successfully');
-				goto('/');
-			})
-			.catch((error) => {
-				console.error(error);
-			});
-	}
+	async function auth() {
+		if (email == '' || password.length < 8) return;
 
-	function auth() {
-		if (email == '' || password == '') return;
-
-		if (password.length < 8) return;
-
-		if (currentForm == 0) {
-			signInWithEmailAndPassword(fb.auth(), email, password)
-				.then(() => {
-					goto('/');
-					return 0;
-				})
-				.catch((e) => {
-					switch (e.code) {
-						case 'auth/wrong-password':
-							alert('Wrong password');
-					}
-					console.error(e);
-					return 1;
-				});
-		} else if (currentForm == 1) {
-			createUserWithEmailAndPassword(fb.auth(), email, password)
-				.then(() => {
-					goto('/');
-					return 0;
-				})
-				.catch((e) => {
-					switch (e.code) {
-						case 'auth/email-already-in-use':
-							alert('Email already in use');
-					}
-					return 1;
-				});
-		}
+		currentForm
+			? await signUpWithEmailAndPassword(email, password)
+			: await signInWithEmailAndPassword(email, password);
 	}
 
 	function checkEmail() {
@@ -189,12 +142,5 @@
 		>
 			Sign {currentForm == 0 ? 'In' : 'Up'}
 		</button>
-		<Separator />
-		<button
-			class="mx-auto mt-3 block rounded-md border border-zinc-700 px-3 py-2 hover:bg-zinc-200 dark:hover:bg-zinc-800 sm:rounded-lg"
-			on:click={signInWithGoogle}
-		>
-			Sign In with Google</button
-		>
 	</div>
 </div>

@@ -1,10 +1,11 @@
 <script>
 	import '../app.css';
 	import { onMount } from 'svelte';
-	import { fade, fly } from 'svelte/transition';
+	import { fade } from 'svelte/transition';
 	import { goto } from '$app/navigation';
-	import { getAuth, signOut } from 'firebase/auth';
 	import { clickOutside } from '$lib/clickOutside';
+	import { signOut } from '$lib/pocketbase';
+	import { user } from './store';
 
 	let darkTheme = false;
 	onMount(() => {
@@ -28,11 +29,6 @@
 	let showUserProfile = false;
 	let toggleShowUserProfile = () => {
 		showUserProfile = !showUserProfile;
-	};
-
-	let showMobileMenu = false;
-	let toggleShowMobileMenu = () => {
-		showMobileMenu = !showMobileMenu;
 	};
 
 	function executeSearch() {
@@ -146,6 +142,11 @@
 					class:pointer-events-none={showUserProfile}
 					class="px-2 py-3"
 				>
+					<div
+						class="absolute right-1 h-2 w-2 rounded-lg border-2 border-zinc-800"
+						class:bg-green-500={$user.user?.isValid}
+						class:bg-red-500={!$user.user?.isValid}
+					/>
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
 						fill="none"
@@ -211,12 +212,12 @@
 						</div>
 
 						<!-- TODO: Replace by if user -->
-						{#if false}
+						{#if $user.user?.isValid}
 							<p class="dropdown-item w-full px-3 py-2 text-center">Default</p>
 							<div class="w-full border-b-2 border-b-zinc-300 dark:border-b-zinc-700" />
 							<button
 								class="dropdown-item w-full rounded-lg rounded-tl-none rounded-tr-none px-3 py-2 text-center hover:bg-zinc-200 dark:hover:bg-zinc-600"
-								on:click={() => signOut(getAuth())}>Sign Out</button
+								on:click={() => signOut()}>Sign Out</button
 							>
 						{:else}
 							<div class="w-full border-b-2 dark:border-b-zinc-700" />
