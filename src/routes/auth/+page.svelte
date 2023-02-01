@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { fade } from 'svelte/transition';
 	import { signInWithEmailAndPassword, signUpWithEmailAndPassword } from '$lib/pocketbase';
-	import { user } from '$lib/store';
+	// import { user } from '$lib/store';
 
 	// 0 => Sign In
 	// 1 => Sign Up

@@ -1,12 +1,11 @@
 import PocketBase from 'pocketbase';
-import { user } from '$lib/store';
 import { goto } from '$app/navigation';
 
 export const pb = new PocketBase('http://127.0.0.1:8090');
 
 export async function signInWithEmailAndPassword(email: string, password: string) {
 	try {
-		user.set(await pb.collection('users').authWithPassword(email, password));
+		await pb.collection('users').authWithPassword(email, password);
 		goto('/');
 	} catch (error) {
 		console.error(error);
@@ -16,15 +15,13 @@ export async function signInWithEmailAndPassword(email: string, password: string
 export async function signUpWithEmailAndPassword(email: string, password: string) {
 	email = email.toLowerCase();
 	try {
-		user.set(
-			await pb.collection('users').create({
-				username: email.split('@')[0],
-				email: email,
-				name: email.split('@')[0].split('.')[0],
-				password: password,
-				passwordConfirm: password
-			})
-		);
+		await pb.collection('users').create({
+			username: email.split('@')[0],
+			email: email,
+			name: email.split('@')[0].split('.')[0],
+			password: password,
+			passwordConfirm: password
+		});
 		goto('/');
 	} catch (error) {
 		console.error(error);

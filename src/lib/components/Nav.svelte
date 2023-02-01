@@ -1,11 +1,11 @@
 <script>
-	import '../app.css';
+	import '../../app.css';
 	import { onMount } from 'svelte';
 	import { fade } from 'svelte/transition';
 	import { goto } from '$app/navigation';
 	import { clickOutside } from '$lib/clickOutside';
-	import { signOut } from '$lib/pocketbase';
-	import { user } from './store';
+	import { pb, signOut } from '$lib/pocketbase';
+	import { user } from '$lib/store';
 
 	let darkTheme = false;
 	onMount(() => {
@@ -142,10 +142,13 @@
 					class:pointer-events-none={showUserProfile}
 					class="px-2 py-3"
 				>
+					<!-- <div
+						class="absolute right-1 h-2 w-2 rounded-lg border-2 border-zinc-800 dark:border-zinc-300"
+					/> -->
 					<div
-						class="absolute right-1 h-2 w-2 rounded-lg border-2 border-zinc-800"
-						class:bg-green-500={$user.user?.isValid}
-						class:bg-red-500={!$user.user?.isValid}
+						class="absolute right-1 h-2 w-2 rounded-lg border border-zinc-800 dark:border-zinc-300"
+						class:bg-green-500={$user?.id}
+						class:bg-red-500={!$user?.id}
 					/>
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
@@ -211,9 +214,8 @@
 							</button>
 						</div>
 
-						<!-- TODO: Replace by if user -->
-						{#if $user.user?.isValid}
-							<p class="dropdown-item w-full px-3 py-2 text-center">Default</p>
+						{#if $user?.id}
+							<p class="dropdown-item w-full px-3 py-2 text-center">{$user.username}</p>
 							<div class="w-full border-b-2 border-b-zinc-300 dark:border-b-zinc-700" />
 							<button
 								class="dropdown-item w-full rounded-lg rounded-tl-none rounded-tr-none px-3 py-2 text-center hover:bg-zinc-200 dark:hover:bg-zinc-600"

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Separator from '$lib/Separator.svelte';
+	import Separator from '$lib/components/Separator.svelte';
 
 	let title: string;
 	let description: string;
@@ -23,9 +23,6 @@
 	<div
 		class="pointer-events-auto mx-auto mr-2 inline-block w-fit self-center rounded-lg border border-zinc-700 bg-white px-5 py-4 shadow-lg dark:bg-zinc-900 sm:w-3/5 md:w-2/5"
 	>
-		<h1 class="px-3 pb-2 text-center text-xl">New listing</h1>
-		<Separator />
-
 		<div class="px-2 py-3">
 			<div id="title">
 				<span class="text-lg"> Title </span>
@@ -45,8 +42,8 @@
 					name="description"
 					id="description"
 					cols="30"
-					rows="10"
-					class="block w-full rounded-md border border-zinc-700 px-2 py-1 text-lg outline-none outline-offset-0 focus:outline-blue-500 dark:bg-zinc-800 sm:rounded-lg sm:px-3"
+					rows="5"
+					class="block w-full rounded-md border border-zinc-700 px-2 py-1 text-base outline-none outline-offset-0 focus:outline-blue-500 dark:bg-zinc-800 sm:rounded-lg sm:px-3"
 				/>
 			</div>
 			<br />
