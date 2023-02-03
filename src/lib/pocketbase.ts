@@ -29,5 +29,6 @@ export async function signUpWithEmailAndPassword(email: string, password: string
 }
 
 export function signOut() {
+	goto('/');
 	pb.authStore.clear();
 }

@@ -42,7 +42,7 @@
 
 <nav class="fixed z-50 w-full p-1 transition duration-500 ease-in-out sm:p-3">
 	<div
-		class="mx-auto w-full rounded border border-zinc-700 bg-zinc-100 py-2 shadow-lg dark:bg-zinc-900 sm:p-2 lg:w-3/5"
+		class="mx-auto w-full rounded border border-zinc-700 bg-zinc-100 py-2 shadow-lg dark:bg-zinc-900 sm:p-2 lg:w-2/3"
 	>
 		<div class="flex justify-between">
 			<!-- Home -->
@@ -140,15 +140,15 @@
 				<button
 					on:click={toggleShowUserProfile}
 					class:pointer-events-none={showUserProfile}
-					class="px-2 py-3"
+					class="py-3 pr-2"
 				>
 					<!-- <div
 						class="absolute right-1 h-2 w-2 rounded-lg border-2 border-zinc-800 dark:border-zinc-300"
 					/> -->
 					<div
 						class="absolute right-1 h-2 w-2 rounded-lg border border-zinc-800 dark:border-zinc-300"
-						class:bg-green-500={$user?.id}
-						class:bg-red-500={!$user?.id}
+						class:bg-green-500={$user}
+						class:bg-red-500={!$user}
 					/>
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
@@ -219,13 +219,19 @@
 							<div class="w-full border-b-2 border-b-zinc-300 dark:border-b-zinc-700" />
 							<button
 								class="dropdown-item w-full rounded-lg rounded-tl-none rounded-tr-none px-3 py-2 text-center hover:bg-zinc-200 dark:hover:bg-zinc-600"
-								on:click={() => signOut()}>Sign Out</button
+								on:click={() => {
+									signOut();
+									showUserProfile = false;
+								}}>Sign Out</button
 							>
 						{:else}
 							<div class="w-full border-b-2 dark:border-b-zinc-700" />
 							<button
 								class="dropdown-item w-full rounded-lg rounded-tl-none rounded-tr-none px-3 py-2 text-center hover:bg-zinc-200 dark:hover:bg-zinc-600"
-								on:click={() => goto('/auth')}>Sign In</button
+								on:click={() => {
+									goto('/auth');
+									showUserProfile = false;
+								}}>Sign In</button
 							>
 						{/if}
 					</ul>
