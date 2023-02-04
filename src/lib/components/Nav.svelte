@@ -1,13 +1,18 @@
 <script>
 	import '../../app.css';
-	import { onMount } from 'svelte';
+	import { createEventDispatcher, onMount } from 'svelte';
 	import { fade } from 'svelte/transition';
 	import { goto } from '$app/navigation';
 	import { clickOutside } from '$lib/clickOutside';
 	import { pb, signOut } from '$lib/pocketbase';
-	import { user } from '$lib/store';
+	import { sort, user } from '$lib/store';
+	import { get } from 'svelte/store';
+
+	const dispatch = createEventDispatcher();
 
 	let darkTheme = false;
+	$: sort_direction = '+';
+
 	onMount(() => {
 		darkTheme = localStorage.getItem('theme') === 'dark' ? true : false;
 	});
@@ -34,6 +39,11 @@
 	function executeSearch() {
 		console.log(search);
 		return;
+	}
+
+	function switchSortingDirection() {
+		sort_direction = sort_direction === '+' ? '-' : '+';
+		sort.set({ by: get(sort).by, direction: sort_direction });
 	}
 
 	// let priceMin = 0;
@@ -71,8 +81,8 @@
 			<div class="flex w-full cursor-text items-center md:w-3/4">
 				<!-- Settings -->
 				<button
-					on:click={toggleShowSearchOptions}
-					class="inline-block h-5/6 rounded-l-md border border-r-0 border-zinc-700 bg-white p-1 pl-2 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 sm:h-full sm:p-2 sm:pl-3"
+					class="inline-block h-full rounded-l-md border border-r-0 border-zinc-700 bg-white px-2 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700"
+					on:click={switchSortingDirection}
 				>
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
@@ -81,11 +91,27 @@
 						stroke-width="1.5"
 						stroke="currentColor"
 						class="inline-block h-6 w-6"
+						class:hidden={sort_direction === '-'}
 					>
 						<path
 							stroke-linecap="round"
 							stroke-linejoin="round"
-							d="M10.5 6h9.75M10.5 6a1.5 1.5 0 11-3 0m3 0a1.5 1.5 0 10-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-9.75 0h9.75"
+							d="M8.25 6.75L12 3m0 0l3.75 3.75M12 3v18"
+						/>
+					</svg>
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						fill="none"
+						viewBox="0 0 24 24"
+						stroke-width="1.5"
+						stroke="currentColor"
+						class="h-6 w-6"
+						class:hidden={sort_direction === '+'}
+					>
+						<path
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							d="M15.75 17.25L12 21m0 0l-3.75-3.75M12 21V3"
 						/>
 					</svg>
 				</button>
@@ -236,85 +262,6 @@
 						{/if}
 					</ul>
 				{/if}
-			</div>
-		</div>
-
-		<!-- Search options -->
-		<div class="flex justify-between">
-			<div class:hidden={!showSearchOptions} class="items-centers mt-3 flex w-1/2">
-				<!-- Category -->
-				<div id="category" class="inline-block">
-					<!-- Select -->
-					<button
-						class="inline-block rounded-xl bg-zinc-300 p-3 hover:bg-zinc-200 dark:bg-zinc-700 dark:hover:bg-zinc-600"
-					>
-						Category
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							fill="none"
-							viewBox="0 0 24 24"
-							stroke-width="1.5"
-							stroke="currentColor"
-							class="inline-block h-6 w-6"
-						>
-							<path
-								stroke-linecap="round"
-								stroke-linejoin="round"
-								d="M19.5 8.25l-7.5 7.5-7.5-7.5"
-							/>
-						</svg>
-					</button>
-				</div>
-
-				<!-- Price -->
-				<!-- <div id="price" class="flex">
-					<label
-						for="min"
-						class="h-5/6 p-2 align-middle rounded-xl rounded-tr-none rounded-br-none bg-zinc-200"
-						>Min</label
-					>
-					<input
-						id="min"
-						type="text"
-						bind:value={priceMin}
-						class="mr-2 p-2 h-5/6 rounded-xl rounded-tl-none rounded-bl-none"
-					/>
-
-					<label
-						for="max"
-						class="ml-2 h-5/6 p-2 rounded-xl rounded-tr-none rounded-br-none bg-zinc-200">Max</label
-					>
-					<input
-						id="max"
-						type="text"
-						bind:value={priceMin}
-						class="h-5/6 p-2 rounded-xl rounded-tl-none rounded-bl-none"
-					/>
-				</div> -->
-
-				<!-- Region -->
-				<div id="region" class="inline-block ">
-					<!-- Select -->
-					<button
-						class="inline-block rounded-xl bg-zinc-300 p-3 hover:bg-zinc-200 dark:bg-zinc-700 dark:hover:bg-zinc-600"
-					>
-						Région
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							fill="none"
-							viewBox="0 0 24 24"
-							stroke-width="1.5"
-							stroke="currentColor"
-							class="inline-block h-6 w-6"
-						>
-							<path
-								stroke-linecap="round"
-								stroke-linejoin="round"
-								d="M19.5 8.25l-7.5 7.5-7.5-7.5"
-							/>
-						</svg>
-					</button>
-				</div>
 			</div>
 		</div>
 	</div>

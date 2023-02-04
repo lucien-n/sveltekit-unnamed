@@ -1,5 +1,6 @@
 import { pb } from '$lib/pocketbase';
 import { user } from '$lib/store';
+import { get } from 'svelte/store';
 
 pb.authStore.onChange(async (token: string, model: any) => {
 	if (!model) {
@@ -11,7 +12,7 @@ pb.authStore.onChange(async (token: string, model: any) => {
 
 export async function load() {
 	return {
-		listings: await pb.collection('listings').getList(1, 50, {
+		listings: await pb.collection('listings').getFullList(10, {
 			sort: 'created'
 		})
 	};
