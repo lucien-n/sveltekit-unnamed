@@ -81,7 +81,7 @@
 			<div class="flex w-full cursor-text items-center md:w-3/4">
 				<!-- Settings -->
 				<button
-					class="inline-block h-full rounded-l-md border border-r-0 border-zinc-700 bg-white px-2 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700"
+					class="inline-block h-5/6 rounded-l-md border border-r-0 border-zinc-700 bg-white p-1 pr-2 dark:bg-zinc-800 sm:h-full sm:p-2 sm:pr-3"
 					on:click={switchSortingDirection}
 				>
 					<svg

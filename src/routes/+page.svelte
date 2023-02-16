@@ -2,21 +2,26 @@
 	import Listing from '$lib/components/Listing.svelte';
 	import { pb } from '$lib/pocketbase';
 	import { sort } from '$lib/store';
-	import { get } from 'svelte/store';
 	import { fade } from 'svelte/transition';
 
-	async function getListings() {
+	let get_listings: any;
+
+	async function getListings(sort_data: { direction: string; by: string }) {
 		const query = await pb.collection('listings').getFullList(10, {
-			sort: get(sort).direction + get(sort).by
+			sort: sort_data.direction + sort_data.by
 		});
 
 		return query;
 	}
+
+	const usubscribe = sort.subscribe((sort_data) => {
+		get_listings = getListings(sort_data);
+	});
 </script>
 
 <main transition:fade={{ duration: 100 }} class="mx-auto h-full w-full lg:w-11/12">
 	<section id="listings" class="mx-1 h-full pt-24 md:mx-auto md:w-3/5">
-		{#await getListings() then listings}
+		{#await get_listings then listings}
 			{#each listings as listing}
 				<br />
 				<Listing {listing} />
