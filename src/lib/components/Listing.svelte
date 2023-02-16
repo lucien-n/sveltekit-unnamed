@@ -26,12 +26,11 @@
 		on:mouseenter={() => (hovered = true)}
 		on:mouseleave={() => (hovered = false)}
 	>
-		<div class="font-semibold hover:underline" class:text-orange-600={hovered}>
+		<div class="text-lg font-semibold hover:underline" class:text-orange-600={hovered}>
 			{listing.title}
 		</div>
 		<div class="font-medium">
-			{listing.price}
-			<p class="inline-block">€</p>
+			<p>{listing.price}€</p>
 		</div>
 
 		<div class="absolute bottom-0 py-4 text-zinc-600 dark:text-zinc-400">

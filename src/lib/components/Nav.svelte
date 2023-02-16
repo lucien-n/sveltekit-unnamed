@@ -39,19 +39,18 @@
 	};
 
 	function executeSearch() {
-		console.log(search);
-		return;
+		sort.set({ by: get(sort).by, direction: get(sort).direction, search: search });
 	}
 
 	function switchSortingDirection() {
 		sort_direction = sort_direction === '+' ? '-' : '+';
-		sort.set({ by: get(sort).by, direction: sort_direction });
+		sort.set({ by: get(sort).by, direction: sort_direction, search: search });
 	}
 
 	function switchSortingBy() {
 		let next_index = sorts.indexOf(sort_by) + 1;
 		sort_by = next_index === sorts.length ? sorts[0] : sorts[next_index];
-		sort.set({ by: sort_by, direction: get(sort).direction });
+		sort.set({ by: sort_by, direction: get(sort).direction, search: get(sort).search });
 	}
 </script>
 
@@ -96,7 +95,7 @@
 						stroke-width="1.5"
 						stroke="currentColor"
 						class="inline-block h-6 w-6"
-						class:hidden={sort_direction === '-'}
+						class:hidden={sort_direction === '+'}
 					>
 						<path
 							stroke-linecap="round"
@@ -111,7 +110,7 @@
 						stroke-width="1.5"
 						stroke="currentColor"
 						class="h-6 w-6"
-						class:hidden={sort_direction === '+'}
+						class:hidden={sort_direction === '-'}
 					>
 						<path
 							stroke-linecap="round"

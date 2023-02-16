@@ -31,7 +31,8 @@
 			seller: $user.id,
 			price: price,
 			category: 'default',
-			picture_url: picture_asUrl
+			picture_url: picture_asUrl,
+			seller_name: $user.name
 		};
 		pb.collection('listings').create(data);
 
@@ -41,7 +42,7 @@
 
 <div id="new" class="pointer-events-none flex h-full w-full">
 	<div
-		class="lgù:inline-block pointer-events-auto mx-auto mr-2 w-fit self-center rounded-lg border border-zinc-700 bg-white px-5 py-4 shadow-lg dark:bg-zinc-900 sm:w-3/5 md:w-2/5"
+		class="pointer-events-auto mx-auto mr-2 w-fit self-center rounded-lg border border-zinc-700 bg-white px-5 py-4 shadow-lg dark:bg-zinc-900 sm:w-3/5 md:w-2/5 lg:inline-block"
 	>
 		<div class="px-2 py-3">
 			<div id="title">

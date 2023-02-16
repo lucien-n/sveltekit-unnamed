@@ -42,7 +42,7 @@
 
 <div in:fade={{ duration: 350 }} class="pointer-events-none flex h-full w-full">
 	<div
-		class="pointer-events-auto mx-auto w-fit self-center rounded-lg border border-zinc-700 bg-white px-5 py-4 shadow-lg dark:bg-zinc-900 md:w-1/3"
+		class="pointer-events-auto mx-auto w-fit self-center rounded-lg border border-zinc-700 bg-white px-5 py-4 shadow-lg dark:bg-zinc-900 md:w-1/3 xl:w-1/4"
 	>
 		<div class="flex justify-between">
 			<button
