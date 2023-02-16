@@ -14,7 +14,7 @@
 		return query;
 	}
 
-	const usubscribe = sort.subscribe((sort_data) => {
+	const unsubscribe = sort.subscribe((sort_data) => {
 		get_listings = getListings(sort_data);
 	});
 </script>
