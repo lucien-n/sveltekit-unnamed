@@ -20,11 +20,8 @@
 	});
 </script>
 
-<main
-	transition:fade={{ duration: 100 }}
-	class="mx-auto h-full w-full overflow-y-scroll lg:w-11/12"
->
-	<section id="listings" class="mx-1 h-full pt-24 md:mx-auto md:w-3/5">
+<main transition:fade={{ duration: 100 }} class="mx-auto h-full w-full lg:w-11/12">
+	<section id="listings" class="mx-1 h-full overflow-y-scroll pt-20 md:mx-auto md:w-3/5">
 		{#await get_listings then listings}
 			{#each listings as listing}
 				<br />

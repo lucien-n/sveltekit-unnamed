@@ -217,7 +217,7 @@
 			</div>
 
 			<!-- * Add Listing -->
-			<div id="listing" class="flex cursor-pointer">
+			<div id="listing" class="flex cursor-pointer" class:hidden={!$user}>
 				<a href="/new" class="px-2 py-3">
 					<svg
 						xmlns="http://www.w3.org/2000/svg"

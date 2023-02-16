@@ -12,7 +12,7 @@
 	}
 </script>
 
-<section class="block h-full w-full py-28">
+<section class="block h-full w-full overflow-scroll py-24">
 	{#await getListing(params[1])}
 		waiting for listing
 	{:then listing}
