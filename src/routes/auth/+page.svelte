@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { fade } from 'svelte/transition';
 	import { signInWithEmailAndPassword, signUpWithEmailAndPassword } from '$lib/pocketbase';
+	import { append_hydration_dev } from 'svelte/internal';
 
 	// 0 => Sign In
 	// 1 => Sign Up
@@ -12,6 +13,7 @@
 	let incorrectEmailFormat = false;
 	let email = '';
 	let password = '';
+	let address = '';
 
 	let passwordInput: HTMLInputElement;
 	let showPassword = false;
@@ -25,7 +27,7 @@
 		if (email == '' || password.length < 8) return;
 
 		currentForm
-			? await signUpWithEmailAndPassword(email, password)
+			? await signUpWithEmailAndPassword(email, password, address)
 			: await signInWithEmailAndPassword(email, password);
 	}
 
@@ -42,7 +44,7 @@
 
 <div in:fade={{ duration: 350 }} class="pointer-events-none flex h-full w-full">
 	<div
-		class="pointer-events-auto mx-auto w-fit self-center rounded-lg border border-zinc-700 bg-white px-5 py-4 shadow-lg dark:bg-zinc-900 md:w-1/3 xl:w-1/4"
+		class="pointer-events-auto mx-auto w-fit self-center rounded-lg border border-zinc-700 bg-white px-5 py-4 shadow-lg dark:bg-zinc-900 md:w-1/2 lg:w-1/3 xl:w-1/4"
 	>
 		<div class="flex justify-between">
 			<button
@@ -132,6 +134,18 @@
 						{/if}
 					</button>
 				</div>
+			</div>
+			<br />
+			<div id="address" class:hidden={currentForm == 0}>
+				<span class="text-lg"> Address </span>
+				<input
+					type="text"
+					name="email"
+					id="email"
+					placeholder="38 Imaginary Street, Wonderland, 69420"
+					class="block w-full rounded-md border border-zinc-700 px-2 py-1 text-lg outline-none outline-offset-0 focus:outline-blue-500 dark:bg-zinc-800 sm:rounded-lg sm:px-3"
+					bind:value={address}
+				/>
 			</div>
 		</div>
 
