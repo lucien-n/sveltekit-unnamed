@@ -7,7 +7,6 @@
 	async function getListing(id: string) {
 		const listing = await pb.collection('listings').getOne(id);
 		listing.seller = await pb.collection('users').getOne(listing.seller);
-		console.log(listing.seller);
 		return listing;
 	}
 </script>

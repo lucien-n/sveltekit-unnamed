@@ -4,7 +4,7 @@
 	import { fade } from 'svelte/transition';
 	import { goto } from '$app/navigation';
 	import { clickOutside } from '$lib/clickOutside';
-	import { pb, signOut } from '$lib/pocketbase';
+	import { signOut } from '$lib/pocketbase';
 	import { sort, user } from '$lib/store';
 	import { get } from 'svelte/store';
 

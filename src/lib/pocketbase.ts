@@ -1,7 +1,8 @@
 import PocketBase from 'pocketbase';
 import { goto } from '$app/navigation';
 
-export const pb = new PocketBase('http://127.0.0.1:8090');
+const url = 'https://leptitcoin.pockethost.io';
+export const pb = new PocketBase(url);
 
 export async function signInWithEmailAndPassword(email: string, password: string) {
 	try {

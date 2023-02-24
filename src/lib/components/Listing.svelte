@@ -7,7 +7,7 @@
 </script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
-<div id="listing-{listing.id}" class="mx-auto mr-5 flex h-1/6 md:h-1/4">
+<div id="listing-{listing.id}" class="mx-auto flex h-1/6 md:h-1/4">
 	<div
 		class="flex w-2/5 overflow-hidden rounded-lg rounded-r-none border border-r-0 border-zinc-700 shadow-lg hover:cursor-pointer sm:w-1/3"
 	>
